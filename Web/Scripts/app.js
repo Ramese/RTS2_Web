@@ -93,18 +93,21 @@
 				templateUrl: 'Views/interface.html',
 				controller: 'InterfaceCtrl',
 				caseInsenstivieMatch: true,
+                freeAccess: true,
                 title: "Interface | RTS2 Web"
 			})
             .when('/', {
 				templateUrl: 'Views/interface.html',
 				controller: 'InterfaceCtrl',
 				caseInsenstivieMatch: true,
+                freeAccess: true,
                 title: "Interface | RTS2 Web"
 			})
             .when('/timetable', {
-				templateUrl: 'Views/timeTabel.html',
+				templateUrl: 'Views/timeTable.html',
 				controller: 'TimeTableCtrl',
 				caseInsenstivieMatch: true,
+                freeAccess: true,
                 title: "TimeTable | RTS2 Web"
 			})
 			.when('/about', {

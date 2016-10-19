@@ -1,12 +1,32 @@
 <div class="container-fluid">
-    <img src="" />
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">
-            Panel
+            Main controll panel
         </div>
-        
         <div class="panel-body">
-        
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="selectTelescope">Select telescope:</label>
+                    <select id="selectTelescope">
+                        <option>Telescope1</option>
+                        <option>Telescope2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary">+</button>
+                    <button class="btn btn-primary">-</button>
+                    <button class="btn btn-primary">()</button>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <img src="/Content/img/starts_example.jpg" style="width: 100%;" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

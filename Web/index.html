@@ -28,6 +28,8 @@
         <script src="Scripts/controllers.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Controllers/LoginCtrl.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Controllers/LogoutCtrl.js" type="text/javascript" charset="utf-8"></script>
+        <script src="Scripts/Controllers/InterfaceCtrl.js" type="text/javascript" charset="utf-8"></script>
+        <script src="Scripts/Controllers/TimeTableCtrl.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/services.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Services/AuthService.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/translateConfig.js" type="text/javascript" charset="utf-8"></script>
@@ -73,18 +75,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li data-ng-class="{'active': state == 0 || state == undefined}">
-            <a href="#/" data-ng-click="state = 0">
-                <span class="glyphicon glyphicon-open"></span> Upload
+            <a href="#/interface" data-ng-click="state = 0">
+                <span class="glyphicon glyphicon-open"></span> Interface
             </a>
         </li>
         <li data-ng-class="{'active': state == 1}">
-            <a href="#/learn" data-ng-click="state = 1">
-                <span class="glyphicon glyphicon-education"></span> Practise
-            </a>
-        </li>
-        <li data-ng-class="{'active': state == 2}">
-            <a href="#/results" data-ng-click="state = 2">
-                <span class="glyphicon glyphicon-list-alt"></span> Results
+            <a href="#/timetable" data-ng-click="state = 1">
+                <span class="glyphicon glyphicon-education"></span> TimeTable
             </a>
         </li>
       </ul>
