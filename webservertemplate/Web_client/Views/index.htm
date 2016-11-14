@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title data-ng-bind="title">Web Title</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="icon" href="./Content/img/favicon.ico" type="image/x-icon" />
+
+		<link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="./bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="./bower_components/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" rel="stylesheet" />
+		<link href="./Content/css/styl.css" rel="stylesheet" />
+
+		<script src="./bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./bower_components/angular/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./bower_components/angular-route/angular-route.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./bower_components/angular-cookies/angular-cookies.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js" type="text/javascript" charset="utf-8"></script>
+		
+
+		<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="./bower_components/angular-translate/angular-translate.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./bower_components/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<base href="/">
+
+		<script src="./Scripts/routingConfig.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/controllers.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/services.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/Services/AuthService.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/translateConfig.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="./Scripts/Controllers/ExampleCtrl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/Controllers/SettingsCtrl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/Controllers/LogoutCtrl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/Controllers/LoginCtrl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/Controllers/NavCtrl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./Scripts/app.js" type="text/javascript" charset="utf-8"></script>
+		
+
+	</head>
+	<body data-ng-controller="NavCtrl">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+
+				<!-- LOGO -->
+				<div class="navbar-header" data-ng-show="user.username == ''">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#"><img style="max-height:36px; margin-top: -7px; float: left;" src="./Content/img/logo_small.png"> {{ 'MAIN_HEADER' | translate }}</a>
+				</div>
+
+				<!-- LOGO -->
+				<div class="navbar-header" data-ng-show="user.username != ''">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#"><img style="max-height:36px; margin-top: -7px; float: left;" src="./Content/img/logo_small.png"> {{ 'MAIN_HEADER_SHORT' | translate }}</a>
+				</div>
+
+				<!-- MENU -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<!-- LEFT MENU -->
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+						<li><a href="#">Link</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+					</ul>
+
+					<!-- RIGHT MENU -->
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img data-ng-src="{{langIcon}}" style="height: 20px;"  /> <span class="caret"></span></a>
+							<ul class="dropdown-menu dropdown-lang">
+								<li class="dropdown-header dropdown-lang"><a href="" data-ng-click="setLanguage('cs')"><img src="./Content/img/czech_flag_icon.png" style="height: 20px;" /></a></li>
+								<li class="dropdown-header dropdown-lang"><a href="" data-ng-click="setLanguage('en')"><img src="./Content/img/english_flag_icon.png" style="height: 20px;" /></a></li>
+								<li class="dropdown-header dropdown-lang"><a href="" data-ng-click="setLanguage('de')"><img src="./Content/img/germany_flag_icon.png" style="height: 20px;" /></a></li>
+							</ul>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right" data-ng-show="user.username == ''">
+						<li><a href="login"><span class="glyphicon glyphicon-user"></span> {{ 'MENU_LOGIN' | translate }}</a></li>
+						<li><a href="about"><span class="glyphicon glyphicon-info-sign"></span> {{ 'MENU_ABOUT' | translate }}</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right" data-ng-show="user.username != ''">
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> {{user.username}} <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">{{ 'MENU_ACCESS' | translate }}: {{user.role.title}}</li>
+								<li class="divider"></li>
+								<li><a href="about"><span class="glyphicon glyphicon-info-sign"></span> {{ 'MENU_ABOUT' | translate }}</a></li>
+								<li class="linked bottom"><a href="settings"><span class="glyphicon glyphicon-wrench"></span> {{ 'MENU_SETTINGS' | translate }} </a></li>
+								<li class="linked bottom"><a href="logout"><span class="glyphicon glyphicon-off"></span> {{ 'MENU_LOGOUT' | translate }} </a></li>
+							</ul>
+						</li>
+					</ul>
+
+					
+					
+
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+
+		<div data-ng-view></div>
+
+	</body>
+</html>

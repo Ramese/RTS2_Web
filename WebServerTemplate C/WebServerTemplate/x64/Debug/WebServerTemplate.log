@@ -1,0 +1,9 @@
+﻿  WebServerRouting.cpp
+  WebServer.cpp
+  main.cpp
+  TestController.cpp
+  RootController.cpp
+  BaseController.cpp
+  Generating Code...
+  WebServerTemplate.vcxproj -> D:\PROJECTS\Osobni\WebServerTemplate\x64\Debug\WebServerTemplate.exe
+  WebServerTemplate.vcxproj -> D:\PROJECTS\Osobni\WebServerTemplate\x64\Debug\WebServerTemplate.pdb (Partial PDB)
