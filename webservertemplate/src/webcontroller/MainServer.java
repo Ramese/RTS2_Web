@@ -97,21 +97,10 @@ public class MainServer {
         
         this.apiController = new ApiRootController(this.APIPath);
         
-        Controller exampleCtrl = new Controller("/example/id") {
-            @Override
-            public void handle(HttpExchange t) throws IOException {
-
-                String response = "This is exampleCtrl\n" + t.getRequestURI().toString();
-                t.sendResponseHeaders(200, response.length());
-                OutputStream os = t.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-            }
-        };
+        RegistrationController regCtrl = new RegistrationController();
+        this.controllers.addAll(regCtrl.ctrls);
         
-        this.controllers.add(exampleCtrl);
-        this.controllers.add(new RegistrationController("/register"));
-        //this.controllers.add(apiBaseCtrl);
+        
     }
     
     private void initWebServer(){

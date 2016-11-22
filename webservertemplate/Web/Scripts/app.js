@@ -1,4 +1,4 @@
-/*global angular */
+/*global angular, console */
 /*global BootstrapDialog */
 
 (function () {
@@ -55,19 +55,19 @@
 				},
 				'responseError': function (response) {
 					var data = null;
-
+                    console.log("global catch", response.data);
 					if (!(response === undefined || response === null)) {
 						data = response.data;
 					}
 
 					if (!(data === null || data === undefined || data === "")) {
 						BootstrapDialog.show({
-							title: 'Chyba',
+							title: 'Error',
 							closable: false,
 							type: BootstrapDialog.TYPE_DANGER,
 							message: data.isTranslatable ? $translate.instant('RESPONSE_' + data.message) : data.message,
 							buttons: [{
-								label: 'Zavřít',
+								label: 'Close',
 								cssClass: 'btn-danger',
 								action: function (dialogRef) {
 									if (response.status === 401) { // Unauthorized - User hasnt access

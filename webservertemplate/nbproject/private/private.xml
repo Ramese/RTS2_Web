@@ -2,22 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webcontroller/MainServer.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webtemplate/WebTemplate.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/DBConnection/ConnectionTest.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webcontroller/Controllers/RegistrationController.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webtemplate/Testing.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/BusinessObjects/LoginBO.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webcontroller/HTTPProtocol.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/DataObjects/UserDO.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/ValueObjects/BaseVO.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webcontroller/Controllers/UserController.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webcontroller/WebFaceController.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/BusinessObjects/UserBO.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webtemplate/Config.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/ValueObjects/UserVO.java</file>
-            <file>file:/C:/Users/Radek/Documents/NetBeansProjects/webservertemplate/src/webcontroller/Controllers/ApiRootController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

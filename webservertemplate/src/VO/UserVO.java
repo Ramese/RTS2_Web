@@ -1,4 +1,4 @@
-package ValueObjects;
+package VO;
 
 import java.sql.Timestamp;
 import java.util.UUID;

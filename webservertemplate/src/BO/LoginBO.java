@@ -1,4 +1,4 @@
-package BusinessObjects;
+package BO;
 
 /**
  *

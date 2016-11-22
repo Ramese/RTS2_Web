@@ -1,8 +1,7 @@
-package DataObjects;
+package DO;
 
-import ValueObjects.UserVO;
+import VO.UserVO;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,23 +33,10 @@ public class UserDO extends BaseDO {
         con.close();
     }
     
-    private static Connection GetConnection() {
-        try {
-            Class.forName("org.postgresql.Driver");
-            
-            Connection con = DriverManager.getConnection("jdbc:postgresql://192.168.56.101:5432/rts2_web", "postgres", "postgres");
-            
-            return con;
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
     /**
      * Insert statement includuing all propertis.
      * @param userVO 
+     * @throws java.sql.SQLException 
      */
     public static void InsertUser(UserVO userVO) throws SQLException {
         String insertSQL = "INSERT INTO \"User\" (";
@@ -98,17 +84,53 @@ public class UserDO extends BaseDO {
         
         while (rs.next())
         {
-           result.Id = rs.getLong("Id");
-           result.UserName = rs.getString("UserName");
-           result.FirstName = rs.getString("FirstName");
-           result.LastName = rs.getString("LastName");
-           result.Email = rs.getString("Email");
-           result.Role = rs.getString("Role");
-           result.Token = rs.getObject("Token", UUID.class);
-           result.TokenExpiration = rs.getTimestamp("TokenExpiration");
-           result.CreateDate = rs.getTimestamp("CreateDate");
-           result.UpdateDate = rs.getTimestamp("UpdateDate");
-           result.Password = rs.getString("Password");
+           result = FillUserVO(rs, true);
+        } 
+        
+        rs.close();
+        st.close(); 
+        conn.close();
+        
+        return result;
+    }
+    
+    public static UserVO GetUserByUserName(String userName) throws SQLException {
+        UserVO result = null;
+        
+        String SQL = "SELECT * FROM \"User\" WHERE UserName = " + userName;
+        
+        Connection conn = GetConnection();
+        
+        Statement st = conn.createStatement();
+        
+        ResultSet rs = st.executeQuery(SQL);
+        
+        while (rs.next())
+        {
+           result = FillUserVO(rs, true);
+        } 
+        
+        rs.close();
+        st.close(); 
+        conn.close();
+        
+        return result;
+    }
+    
+    public static UserVO GetUserByEmail(String email) throws SQLException {
+        UserVO result = null;
+        
+        String SQL = "SELECT * FROM \"User\" WHERE Email = " + email;
+        
+        Connection conn = GetConnection();
+        
+        Statement st = conn.createStatement();
+        
+        ResultSet rs = st.executeQuery(SQL);
+        
+        while (rs.next())
+        {
+           result = FillUserVO(rs, true);
         } 
         
         rs.close();
@@ -129,24 +151,9 @@ public class UserDO extends BaseDO {
         
         ResultSet rs = st.executeQuery(SQL);
         
-        UserVO user;
-        
         while (rs.next())
         {
-            user = new UserVO();
-            
-            user.Id = rs.getLong("Id");
-            user.UserName = rs.getString("UserName");
-            user.FirstName = rs.getString("FirstName");
-            user.LastName = rs.getString("LastName");
-            user.Email = rs.getString("Email");
-            user.Role = rs.getString("Role");
-            user.Token = rs.getObject("Token", UUID.class);
-            user.TokenExpiration = rs.getTimestamp("TokenExpiration");
-            user.CreateDate = rs.getTimestamp("CreateDate");
-            user.UpdateDate = rs.getTimestamp("UpdateDate");
-            
-            users.add(user);
+            users.add(FillUserVO(rs, false));
         } 
         
         rs.close();
@@ -154,6 +161,26 @@ public class UserDO extends BaseDO {
         conn.close();
         
         return users;
+    }
+    
+    private static UserVO FillUserVO(ResultSet rs, boolean fillPassword) throws SQLException {
+        UserVO user = new UserVO();
+        
+        user.Id = rs.getLong("Id");
+        user.UserName = rs.getString("UserName");
+        user.FirstName = rs.getString("FirstName");
+        user.LastName = rs.getString("LastName");
+        user.Email = rs.getString("Email");
+        user.Role = rs.getString("Role");
+        user.Token = rs.getObject("Token", UUID.class);
+        user.TokenExpiration = rs.getTimestamp("TokenExpiration");
+        user.CreateDate = rs.getTimestamp("CreateDate");
+        user.UpdateDate = rs.getTimestamp("UpdateDate");
+        
+        if(fillPassword)
+            user.Password = rs.getString("Password");
+        
+        return user;
     }
     
     public static void UpdateUser(UserVO userVO) throws SQLException{

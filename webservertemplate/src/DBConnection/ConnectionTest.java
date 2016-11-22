@@ -1,6 +1,6 @@
 package DBConnection;
 
-import ValueObjects.UserVO;
+import VO.UserVO;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.Connection;

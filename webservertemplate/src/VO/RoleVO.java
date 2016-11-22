@@ -1,5 +1,5 @@
 
-package ValueObjects;
+package VO;
 
 /**
  *
