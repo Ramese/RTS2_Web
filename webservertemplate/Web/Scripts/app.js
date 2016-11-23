@@ -55,7 +55,7 @@
 				},
 				'responseError': function (response) {
 					var data = null;
-                    console.log("global catch", response.data);
+                    //console.log("global catch", response.data);
 					if (!(response === undefined || response === null)) {
 						data = response.data;
 					}
@@ -125,6 +125,13 @@
 				caseInsenstivieMatch: true,
                 freeAccess: true,
                 title: "Registration | RTS2 Web"
+			})
+            .when('/telescopes', {
+				templateUrl: 'Views/telescopes.html',
+				controller: 'TelescopesCtrl',
+				caseInsenstivieMatch: true,
+                freeAccess: false,
+                title: "Telescopes list | RTS2 Web"
 			})
 			.when('/about', {
 				templateUrl: 'Views/about.html',

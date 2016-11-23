@@ -40,7 +40,7 @@ If you insert dependencies here, you override all modeles with name "services".
 			login: function (user, success, error) {
 				var request = $http({
 					method: "POST",
-					url: CONSTANTS.API_PREFIX + "/User/login",
+					url: CONSTANTS.API_PREFIX + "/login",
 					headers: { 'Content-Type': 'application/json' },
 					data: user
 				}).success(function (user) {

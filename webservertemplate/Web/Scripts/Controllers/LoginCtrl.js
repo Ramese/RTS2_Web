@@ -15,18 +15,16 @@ If you insert dependencies here, you override all modeles with name "controllers
 
 	app.controller('LoginCtrl', ['$scope', '$window', 'Auth', '$translate', 'CONSTANTS', function ($scope, $window, Auth, $translate, CONSTANTS) {
 
+        $scope.user = {};
+        
 		$scope.$root.title = $translate.instant('TITLE_LOGIN') + " | " + CONSTANTS.WEB_NAME;
 
 		$scope.rememberme = true;
 
 		$scope.login = function () {
-			Auth.login({
-				username: $scope.username,
-				password: $scope.password,
-				rememberme: $scope.rememberme
-			},
+			Auth.login($scope.user,
 				function (res) {
-					$window.location.href = 'workOrders/open';
+					$window.location.href = CONSTANTS.WEB_PREFIX + '/';
 
 					$scope.loginError = undefined;
 				},

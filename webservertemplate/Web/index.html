@@ -36,10 +36,13 @@
         <script src="Scripts/Controllers/InterfaceCtrl.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Controllers/TimeTableCtrl.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Controllers/RegistrationCtrl.js" type="text/javascript" charset="utf-8"></script>
+        <script src="Scripts/Controllers/TelescopesCtrl.js" type="text/javascript" charset="utf-8"></script>
+        <script src="Scripts/Controllers/NavCtrl.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/services.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Services/AuthService.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Services/RegisterService.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/Services/UserService.js" type="text/javascript" charset="utf-8"></script>
+        <script src="Scripts/Services/TelescopeService.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/translateConfig.js" type="text/javascript" charset="utf-8"></script>
         <script src="Scripts/app.js" type="text/javascript" charset="utf-8"></script>
         
@@ -52,72 +55,82 @@
         <base href="/rts2/">
     </head>
 
-    <body>
+    <body data-ng-controller="NavCtrl">
         
-    <article>
-        <h1 style="display: none">{{ $root.title }}</h1>
-<nav class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container-fluid">
-      
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-        
-        <header>
-            <span class="navbar-brand">
-                <svg>
-                    <ellipse cx="55%" cy="50%" rx="45%" ry="50%" style="fill:white" />
-                    <circle cx="50%" cy="50%" r="45%" style="fill:black;stroke:white;stroke-width:1;fill-opacity:0.8;stroke-opacity:0.9" />
-                    <text id="text" fill="white" x="50%" y="20" text-anchor="middle" alignment-baseline="baseline">T</text> 
-                </svg> 
-            </span>
-                <span class="navbar-brand" style="-ms-transform: rotate(-6deg); -webkit-transform: rotate(-6deg); transform: rotate(-6deg);">
-                    RTS2 Web
-                </span>
-        </header>
-    </div>
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+          <div class="container-fluid">
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li data-ng-class="{'active': state == 0 || state == undefined}">
-            <a href="interface" data-ng-click="state = 0">
-                <span class="glyphicon glyphicon-open"></span> Interface
-            </a>
-        </li>
-        <li data-ng-class="{'active': state == 1}">
-            <a href="timetable" data-ng-click="state = 1">
-                <span class="glyphicon glyphicon-education"></span> TimeTable
-            </a>
-        </li>
-        <li data-ng-class="{'active': state == 1}">
-            <a href="calendar" data-ng-click="state = 1">
-                <span class="glyphicon glyphicon-refresh"></span> Calendar
-            </a>
-        </li>
-        <li>
-            <a href="registration">
-                <span class="glyphicon glyphicon-ok"></span> Registration
-            </a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li data-ng-class="{'active': state == 3}">
-            <a href="about" data-ng-click="state = 3">
-                <span class="glyphicon glyphicon-info-sign"></span> About
-            </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+                <header>
+                    <span class="navbar-brand">
+                        <svg>
+                            <ellipse cx="55%" cy="50%" rx="45%" ry="50%" style="fill:white" />
+                            <circle cx="50%" cy="50%" r="45%" style="fill:black;stroke:white;stroke-width:1;fill-opacity:0.8;stroke-opacity:0.9" />
+                            <text id="text" fill="white" x="50%" y="20" text-anchor="middle" alignment-baseline="baseline">T</text> 
+                        </svg> 
+                    </span>
+                        <span class="navbar-brand" style="-ms-transform: rotate(-6deg); -webkit-transform: rotate(-6deg); transform: rotate(-6deg);">
+                            RTS2 Web
+                        </span>
+                </header>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li ng-if="IsLoggedIn()">
+                    <a href="interface">
+                        <span class="glyphicon glyphicon-open"></span> Interface
+                    </a>
+                </li>
+                <li ng-if="IsLoggedIn()">
+                    <a href="telescopes">
+                        <span class="glyphicon glyphicon-open"></span> Telescopes
+                    </a>
+                </li>
+                <li ng-if="IsLoggedIn()">
+                    <a href="timetable">
+                        <span class="glyphicon glyphicon-education"></span> TimeTable
+                    </a>
+                </li>
+                <li ng-if="IsLoggedIn()">
+                    <a href="calendar">
+                        <span class="glyphicon glyphicon-refresh"></span> Calendar
+                    </a>
+                </li>
+                <li ng-if="!IsLoggedIn()">
+                    <a href="registration">
+                        <span class="glyphicon glyphicon-ok"></span> Registration
+                    </a>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!IsLoggedIn()"><a href="./login"><span class="fa fa-reply"></span>&nbsp;Login</a></li>
+                <li ng-if="IsLoggedIn()" class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{user.UserName}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./about"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;Nápověda</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Role: {{ user.Role }}</li>
+                        <li class="dropdown-header">User: {{ user.FirstName + ' ' + user.LastName }}</li>
+                        <li class="dropdown-header">Email: {{ user.Email }}</li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="./logout"><span class="glyphicon glyphicon-off"></span>&nbsp;Logout</a></li>
+                    </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
         
         <div data-ng-view class="container-fluid">
             
-        </div>
-        </article>    
+        </div>  
     </body>
 </html>

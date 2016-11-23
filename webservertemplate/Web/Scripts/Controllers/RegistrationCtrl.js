@@ -28,7 +28,18 @@ If you insert dependencies here, you override all modeles with name "controllers
                 });
         };
         
-        
+        $scope.isUserNameFree = function () {
+            console.log("ctrl isusernamefree");
+            
+            RegistrationService.isUserNameFree($scope.user)
+                .success(function (data) {
+                    console.log(data);
+                    $scope.userNameIsFree = data;
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        };
 	});
 
 }());

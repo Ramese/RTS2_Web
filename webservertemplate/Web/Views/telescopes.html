@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>UserName</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tel in telescopes">
+                <td>{{ tel.Id }}</td>
+                <td>{{ tel.Name }}</td>
+                <td>{{ tel.Address }}</td>
+                <td>{{ tel.AccountName }}</td>
+                <td>{{ tel.AccountPassword }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

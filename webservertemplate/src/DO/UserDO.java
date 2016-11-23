@@ -16,23 +16,6 @@ import java.util.UUID;
  */
 public class UserDO extends BaseDO {
     
-    private static void Execute(String SQL) throws SQLException {
-
-        Connection con = GetConnection();
-
-        if(con == null) {
-            System.err.println("Connection failed!");
-            return;
-        }
-
-        Statement st = con.createStatement();
-
-        st.execute(SQL);
-
-        st.close();
-        con.close();
-    }
-    
     /**
      * Insert statement includuing all propertis.
      * @param userVO 
@@ -59,16 +42,15 @@ public class UserDO extends BaseDO {
         insertSQL += "'" + userVO.LastName + "', ";
         insertSQL += "'" + userVO.Role + "', ";
         insertSQL += "'" + userVO.Email + "', ";
-        insertSQL += "'" + userVO.UpdateDate + "', ";
-        insertSQL += "'" + userVO.CreateDate + "', ";
-        insertSQL += "'" + userVO.Token + "', ";
-        insertSQL += "'" + userVO.TokenExpiration + "', ";
+        insertSQL += "'" + new Timestamp(System.currentTimeMillis()) + "', ";
+        insertSQL += "'" + new Timestamp(System.currentTimeMillis()) + "', ";
+        insertSQL += "'" + UUID.randomUUID() + "', ";
+        insertSQL += "'" + new Timestamp(System.currentTimeMillis()) + "', ";
         insertSQL += "'" + userVO.Password + "'";
         
         insertSQL += ");";
         
         Execute(insertSQL);
-        
     }
     
     public static UserVO GetUser(long Id) throws SQLException {
@@ -97,7 +79,7 @@ public class UserDO extends BaseDO {
     public static UserVO GetUserByUserName(String userName) throws SQLException {
         UserVO result = null;
         
-        String SQL = "SELECT * FROM \"User\" WHERE UserName = " + userName;
+        String SQL = "SELECT * FROM \"User\" WHERE \"UserName\" = '" + userName + "';";
         
         Connection conn = GetConnection();
         
@@ -194,7 +176,7 @@ public class UserDO extends BaseDO {
         "\"Token\"='" + userVO.Token + "', " + 
         "\"TokenExpiration\"='" + userVO.TokenExpiration + "', " +
         "\"Password\"='" + userVO.Password + "'" +
-        " WHERE Id = " + userVO.Id + ";";
+        " WHERE \"Id\" = " + userVO.Id + ";";
         
         Execute(insertSQL);
     }

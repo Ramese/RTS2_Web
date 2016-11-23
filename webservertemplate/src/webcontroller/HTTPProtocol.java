@@ -32,28 +32,32 @@ public class HTTPProtocol {
     public static final String HEADER_CONTENT_TYPE_PNG = "image/png";
     public static final String HEADER_CONTENT_TYPE_JPG = "image/jpeg";
     public static final String HEADER_CONTENT_TYPE_WOFF2 = "application/font-woff2";
+    public static final String HEADER_CONTENT_TYPE_JSON = "application/json";
     
     private HTTPProtocol() {
         // no constructor
     }
     
-    public static void headerInfo(Headers h){
+    public static String headerInfo(Headers h){
+        StringBuilder sb = new StringBuilder();
+        
         Set<String> keys = h.keySet();
         for (String key : keys) {
-            System.out.print(key + ":\t");
-            List<String> values = h.get(key);
+            sb.append(key).append(":\t");
             
+            List<String> values = h.get(key); 
             for (String value : values) {
                 if(values.get(0).equals(value)){
-                    System.out.print(value);
+                    sb.append(value);
                 } else {
-                    System.out.print(", " + value);
+                    sb.append(", ").append(value);
                 }
             }
             
-            System.out.println("");
+            sb.append("\n");
         }
-        System.out.println("\n=============");
+        
+        return sb.toString();
     }
     
 }

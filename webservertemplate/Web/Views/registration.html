@@ -10,10 +10,12 @@
 			<div class="col-xs-12 condensed-form">
 			
 				<!-- USER NAME -->
-				<div class="form-group">
+				<div class="form-group has-feedback" ng-class="{'has-error': regForm.UserName.$invalid, 'has-success': user.UserName != '' && !regForm.UserName.$invalid}">
 					<label class="col-sm-3 control-label">User name</label>
 					<div class="col-sm-9">
-						<input type="text" ng-model="user.UserName" class="form-control" />
+						<input type="text" ng-model="user.UserName" name="UserName" class="form-control" ng-change="isUserNameFree()" />
+                        <span ng-class="{ 'glyphicon glyphicon-remove form-control-feedback' : regForm.LastName.$invalid, 'glyphicon glyphicon-ok form-control-feedback' : user.UserName != '' && !regForm.LastName.$invalid }"></span>
+                        <span class="help-block" data-ng-show="true">Počet Km je povinné</span>
 					</div>
 				</div>
 

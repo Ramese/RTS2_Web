@@ -13,7 +13,9 @@ import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import webcontroller.Controllers.LoginController;
 import webcontroller.Controllers.RegistrationController;
+import webcontroller.Controllers.TelescopeController;
 import webcontroller.websocket.WSServer;
 import static webtemplate.Config.WebConfig.GLOBAL_WEB_PATH;
 import static webtemplate.Config.WebConfig.GLOBAL_WEB_API_PATH;
@@ -100,7 +102,11 @@ public class MainServer {
         RegistrationController regCtrl = new RegistrationController();
         this.controllers.addAll(regCtrl.ctrls);
         
+        LoginController loginCtrl = new LoginController();
+        this.controllers.addAll(loginCtrl.ctrls);
         
+        TelescopeController telescopeCtrl = new TelescopeController();
+        this.controllers.addAll(telescopeCtrl.ctrls);
     }
     
     private void initWebServer(){

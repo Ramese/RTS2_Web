@@ -13,6 +13,35 @@ import java.util.UUID;
  */
 public class UserBO {
     
+    public static UserVO Login(String userName, String password) throws SQLException {
+        UserVO user = UserDO.GetUserByUserName(userName);
+        
+        if(user == null) {
+            return null;
+        }
+        
+        if(user.Password.equals(password)) {
+            //if token is expired - generate new token
+            if(!user.TokenExpiration.after(new Timestamp(System.currentTimeMillis()))) {
+                user.Token = UUID.randomUUID();
+            }
+            //extend token time
+            long eightHours = 8*60*60*1000;
+            user.TokenExpiration = new Timestamp(System.currentTimeMillis() + eightHours);
+            
+            //save
+            UserDO.UpdateUser(user);
+            
+            //erase pass for client site
+            user.Password = null;
+            
+            //return token
+            return user;
+        } else {
+            return null;
+        }
+    }
+    
     public static boolean IsPasswordStrong(String pass){
         if(pass == null || pass.equals(""))
             return false;
@@ -60,16 +89,12 @@ public class UserBO {
     }
     
     public static UserVO GetUserByEmail(String userName) throws SQLException {
-        return UserDO.GetUserByUserName(userName);
+        return UserDO.GetUserByEmail(userName);
     }
     
     public static void InsertUser(UserVO userVO) throws Exception {
         if(IsUserValidForInsert(userVO))
         {
-            userVO.CreateDate = new Timestamp(System.currentTimeMillis());
-            userVO.TokenExpiration = userVO.CreateDate;
-            userVO.UpdateDate = userVO.CreateDate;
-            userVO.Token = UUID.randomUUID();
             UserDO.InsertUser(userVO);
         }
         else
