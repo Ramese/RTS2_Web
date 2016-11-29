@@ -92,6 +92,10 @@ public class UserBO {
         return UserDO.GetUserByEmail(userName);
     }
     
+    public static UserVO GetUserByToken(String token) throws SQLException {
+        return UserDO.GetUserByToken(token);
+    }
+    
     public static void InsertUser(UserVO userVO) throws Exception {
         if(IsUserValidForInsert(userVO))
         {

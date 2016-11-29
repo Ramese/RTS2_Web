@@ -102,7 +102,30 @@ public class UserDO extends BaseDO {
     public static UserVO GetUserByEmail(String email) throws SQLException {
         UserVO result = null;
         
-        String SQL = "SELECT * FROM \"User\" WHERE Email = " + email;
+        String SQL = "SELECT * FROM \"User\" WHERE \"Email\" = '" + email + "';";
+        
+        Connection conn = GetConnection();
+        
+        Statement st = conn.createStatement();
+        
+        ResultSet rs = st.executeQuery(SQL);
+        
+        while (rs.next())
+        {
+           result = FillUserVO(rs, true);
+        } 
+        
+        rs.close();
+        st.close(); 
+        conn.close();
+        
+        return result;
+    }
+    
+    public static UserVO GetUserByToken(String token) throws SQLException {
+        UserVO result = null;
+        
+        String SQL = "SELECT * FROM \"User\" WHERE \"Token\" = '" + token + "';";
         
         Connection conn = GetConnection();
         

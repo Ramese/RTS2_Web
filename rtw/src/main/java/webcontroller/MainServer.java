@@ -2,11 +2,9 @@ package webcontroller;
 
 import webcontroller.Controllers.Controller;
 import webcontroller.Controllers.ApiRootController;
-import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,13 +126,9 @@ public class MainServer {
                 server.createContext(apiController.path, apiController);
             }
             
-            
-            
             if(mainController != null){
                 server.createContext(mainController.path, mainController);
             }
-            
-            
             
             server.setExecutor(null); // creates a default executor
             server.start();

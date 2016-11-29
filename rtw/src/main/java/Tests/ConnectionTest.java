@@ -1,4 +1,4 @@
-package DBConnection;
+package Tests;
 
 import VO.UserVO;
 import java.lang.reflect.Field;

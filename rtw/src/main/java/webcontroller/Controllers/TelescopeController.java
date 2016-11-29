@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import webcontroller.HTTPProtocol;
 import static webtemplate.Config.GLOBAL_DEBUG;
 
 /**
@@ -27,6 +28,8 @@ public class TelescopeController {
                     if(GLOBAL_DEBUG) {
                         System.out.println("TelescopesController:");
                     }
+                    System.out.println("Headers: ");
+                    System.out.println(HTTPProtocol.headerInfo(t.getRequestHeaders()));
                     
                     Controller.SendGoodResponse(TelescopeBO.GetTelescopes(), t);
                 } catch (Exception ex) {

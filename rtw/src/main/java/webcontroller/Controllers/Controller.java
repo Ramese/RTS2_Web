@@ -1,7 +1,10 @@
 package webcontroller.Controllers;
 
+import BO.UserBO;
 import VO.ResponseMessageVO;
+import VO.UserVO;
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Filter;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -9,9 +12,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.UUID;
 import webcontroller.HTTPProtocol;
 import static webtemplate.Config.GLOBAL_DEBUG;
 
@@ -168,5 +173,18 @@ public class Controller implements HttpHandler {
         // transfer JSON to Value Object
         Gson gson = new Gson();
         return gson.fromJson(inputJSON, _class);
+    }
+    
+    public static UserVO GetInfo(HttpExchange t) throws SQLException {
+        
+        List<String> values = t.getRequestHeaders().get("Token");
+        
+        if(values == null || values.isEmpty()) {
+            return null;
+        }
+        
+        UUID token = UUID.fromString(values.get(0));
+        
+        return UserBO.GetUserByToken(token.toString());
     }
 }
