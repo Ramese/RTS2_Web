@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_SOCKET_PORT_NUMBER;
+import static rtw.Config.WebConfig.GLOBAL_WEB_SOCKET_PORT_NUMBER;
 
 public class WSServer implements Runnable {
     private ServerSocket ss;

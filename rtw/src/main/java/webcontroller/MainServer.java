@@ -15,12 +15,12 @@ import webcontroller.Controllers.LoginController;
 import webcontroller.Controllers.RegistrationController;
 import webcontroller.Controllers.TelescopeController;
 import webcontroller.websocket.WSServer;
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_PATH;
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_API_PATH;
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_INDEX_NAME;
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_PORT_NUMBER;
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_NAME;
-import static webtemplate.Config.WebConfig.GLOBAL_WEB_FOLDER_PATH;
+import static rtw.Config.WebConfig.GLOBAL_WEB_PATH;
+import static rtw.Config.WebConfig.GLOBAL_WEB_API_PATH;
+import static rtw.Config.WebConfig.GLOBAL_WEB_INDEX_NAME;
+import static rtw.Config.WebConfig.GLOBAL_WEB_PORT_NUMBER;
+import static rtw.Config.WebConfig.GLOBAL_WEB_NAME;
+import static rtw.Config.WebConfig.GLOBAL_WEB_FOLDER_PATH;
 
 /**
  * MainServer is the main service running and listening socket communication. 

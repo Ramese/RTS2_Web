@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import webcontroller.HTTPProtocol;
-import static webtemplate.Config.GLOBAL_DEBUG;
+import static rtw.Config.GLOBAL_DEBUG;
 
 /**
  *

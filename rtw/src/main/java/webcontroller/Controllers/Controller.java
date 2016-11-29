@@ -18,7 +18,7 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.UUID;
 import webcontroller.HTTPProtocol;
-import static webtemplate.Config.GLOBAL_DEBUG;
+import static rtw.Config.GLOBAL_DEBUG;
 
 /**
  *

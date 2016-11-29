@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import static webtemplate.Config.GLOBAL_DEBUG;
+import static rtw.Config.GLOBAL_DEBUG;
 import logger.Surikata;
 /**
  *
