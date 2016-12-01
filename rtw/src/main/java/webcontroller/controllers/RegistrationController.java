@@ -1,4 +1,4 @@
-package webcontroller.Controllers;
+package webcontroller.controllers;
 
 import BO.UserBO;
 import VO.UserVO;
@@ -26,7 +26,7 @@ public class RegistrationController {
     }
     
     private Controller GetRegistrationCtrl() {
-        return new Controller("/register") {
+        return new Controller("/register", false) {
             @Override
             public void handle(HttpExchange t) {
                 try {
@@ -67,7 +67,7 @@ public class RegistrationController {
     }
     
     private Controller GetCheckUserNameCtrl() {
-        return new Controller("/register/isUsernameFree") {
+        return new Controller("/register/isUsernameFree", false) {
             @Override
             public void handle(HttpExchange t) throws IOException {
                 try {
@@ -93,7 +93,7 @@ public class RegistrationController {
     }
     
     private Controller GetCheckUserEmailCtrl() {
-        return new Controller("/register/isUserEmailFree") {
+        return new Controller("/register/isUserEmailFree", false) {
             @Override
             public void handle(HttpExchange t) throws IOException {
                 try {

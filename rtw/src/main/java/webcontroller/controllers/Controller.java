@@ -1,4 +1,4 @@
-package webcontroller.Controllers;
+package webcontroller.controllers;
 
 import BO.UserBO;
 import VO.ResponseMessageVO;
@@ -27,6 +27,7 @@ import static rtw.Config.GLOBAL_DEBUG;
 public class Controller implements HttpHandler {
     public final String path;
     public String regex;
+    public boolean isUserInfoRequired;
     
     public static final String RESPONSE_TOKEN_EXPIRED		= "TOKEN_EXPIRED";
     public static final String RESPONSE_TOKEN_WRONG		= "TOKEN_WRONG";
@@ -66,7 +67,8 @@ public class Controller implements HttpHandler {
         return result;
     }
 
-    public Controller(String path){
+    public Controller(String path, boolean isUserInfoRequired){
+        this.isUserInfoRequired = isUserInfoRequired;
         
         if(path.startsWith("/")){
             this.path = path;
@@ -175,16 +177,16 @@ public class Controller implements HttpHandler {
         return gson.fromJson(inputJSON, _class);
     }
     
-    public static UserVO GetInfo(HttpExchange t) throws SQLException {
-        
-        List<String> values = t.getRequestHeaders().get("Token");
-        
-        if(values == null || values.isEmpty()) {
-            return null;
-        }
-        
-        UUID token = UUID.fromString(values.get(0));
-        
-        return UserBO.GetUserByToken(token.toString());
-    }
+//    public static UserVO GetInfo(HttpExchange t) throws SQLException {
+//        
+//        List<String> values = t.getRequestHeaders().get("Token");
+//        
+//        if(values == null || values.isEmpty()) {
+//            return null;
+//        }
+//        
+//        UUID token = UUID.fromString(values.get(0));
+//        
+//        return UserBO.GetUserByToken(token.toString());
+//    }
 }

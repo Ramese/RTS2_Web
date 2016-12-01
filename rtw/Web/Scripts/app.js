@@ -95,28 +95,28 @@
 				templateUrl: 'Views/interface.html',
 				controller: 'InterfaceCtrl',
 				caseInsenstivieMatch: true,
-                freeAccess: true,
+                freeAccess: false,
                 title: "Interface | RTS2 Web"
 			})
             .when('/', {
 				templateUrl: 'Views/interface.html',
 				controller: 'InterfaceCtrl',
 				caseInsenstivieMatch: true,
-                freeAccess: true,
+                freeAccess: false,
                 title: "Interface | RTS2 Web"
 			})
             .when('/timetable', {
 				templateUrl: 'Views/timeTable.html',
 				controller: 'TimeTableCtrl',
 				caseInsenstivieMatch: true,
-                freeAccess: true,
+                freeAccess: false,
                 title: "TimeTable | RTS2 Web"
 			})
             .when('/calendar', {
 				templateUrl: 'Views/calendar.html',
 				controller: 'CalendarCtrl',
 				caseInsenstivieMatch: true,
-                freeAccess: true,
+                freeAccess: false,
                 title: "Calendar | RTS2 Web"
 			})
             .when('/registration', {
@@ -132,6 +132,14 @@
 				caseInsenstivieMatch: true,
                 freeAccess: false,
                 title: "Telescopes list | RTS2 Web"
+			})
+        
+            .when('/telescope/:id', {
+				templateUrl: 'Views/telescope.html',
+				controller: 'TelescopeCtrl',
+				caseInsenstivieMatch: true,
+                freeAccess: false,
+                title: "Telescope view | RTS2 Web"
 			})
 			.when('/about', {
 				templateUrl: 'Views/about.html',

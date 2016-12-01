@@ -1,4 +1,4 @@
-package webcontroller.Controllers;
+package webcontroller.controllers;
 
 import BO.UserBO;
 import VO.UserVO;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import webcontroller.HTTPProtocol;
 import static rtw.Config.GLOBAL_DEBUG;
 
 /**
@@ -22,7 +21,7 @@ public class LoginController {
     }
     
     private Controller GetLoginCtrl() {
-        return new Controller("/login") {
+        return new Controller("/login", false) {
             @Override
             public void handle(HttpExchange t) {
                 try {

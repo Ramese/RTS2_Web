@@ -1,6 +1,6 @@
-package webcontroller.Controllers;
+package webcontroller.controllers;
 
-import webcontroller.Controllers.Controller;
+import webcontroller.controllers.Controller;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,7 +12,7 @@ import java.io.OutputStream;
 public class UserController extends Controller {
     
     public UserController(String path) {
-        super(path);
+        super(path, false);
     }
     
     @Override

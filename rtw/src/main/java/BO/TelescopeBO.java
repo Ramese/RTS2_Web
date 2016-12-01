@@ -42,4 +42,12 @@ public class TelescopeBO {
         else
             throw new Exception("Telescope data are invalid.");
     }
+    
+    public static void UpdateTelescope(TelescopeVO telescopeVO) throws Exception {
+        if(IsTelescopeValidForInsert(telescopeVO)) {
+            TelescopeDO.UpdateTelescope(telescopeVO);
+        } else {
+            throw new Exception("Telescope data are invalid.");
+        }
+    }
 }

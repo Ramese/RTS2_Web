@@ -7,7 +7,7 @@ import java.util.UUID;
  * Data transfer object for User.
  * @author Radek
  */
-public class UserVO extends BaseVO{
+public class UserVO {
     public static String COL_ID = "Id";
     public static String COL_USERNAME = "UserName";
     public static String COL_FIRSTNAME = "FirstName";

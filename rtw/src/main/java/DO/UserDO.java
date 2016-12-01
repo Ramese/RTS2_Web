@@ -122,10 +122,11 @@ public class UserDO extends BaseDO {
         return result;
     }
     
-    public static UserVO GetUserByToken(String token) throws SQLException {
+    public static UserVO GetUserByToken(String token, String userName) throws SQLException {
         UserVO result = null;
         
-        String SQL = "SELECT * FROM \"User\" WHERE \"Token\" = '" + token + "';";
+        String SQL = "SELECT * FROM \"User\" WHERE \"Token\" = '" + token + "'";
+        SQL += " AND \"UserName\" = '" + userName + "';";
         
         Connection conn = GetConnection();
         
@@ -188,6 +189,12 @@ public class UserDO extends BaseDO {
         return user;
     }
     
+    /**
+     * Method updates all user properties in database. UpdateDate is automaticly
+     * set to now. Id is used to search for user.
+     * @param userVO
+     * @throws SQLException 
+     */
     public static void UpdateUser(UserVO userVO) throws SQLException{
         
         String insertSQL = "UPDATE \"User\" SET " +

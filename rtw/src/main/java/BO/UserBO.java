@@ -12,7 +12,56 @@ import java.util.UUID;
  * @author Radek
  */
 public class UserBO {
+    private static final long MS_IN_EIGHT_HOURS = 8*60*60*1000;
     
+    /**
+     * Check if user token is expired, if it is not it will extend expiration date.
+     * @param token
+     * @param userName
+     * @return  User if user's token is not expired.
+     * @throws SQLException 
+     */
+    public static UserVO IsLoggedIn(String token, String userName) throws SQLException {
+        UserVO user = UserDO.GetUserByToken(token, userName);
+        
+        if(user == null) {
+            return null;
+        }
+        
+        if(user.TokenExpiration.before(new Timestamp(System.currentTimeMillis()))) {
+            return null;
+        }
+        
+        return ExtendTokenExpiration(token, userName);
+    }
+    
+    /**
+     * Method sets token expiration date on value now + 8 hours. No conditions.
+     * @param token
+     * @param userName
+     * @return  User info including new token expiration date.
+     * @throws SQLException 
+     */
+    private static UserVO ExtendTokenExpiration(String token, String userName) throws SQLException {
+        UserVO user = UserDO.GetUserByToken(token, userName);
+        
+        long eightHours = MS_IN_EIGHT_HOURS;
+        user.TokenExpiration = new Timestamp(System.currentTimeMillis() + eightHours);
+        
+        UserDO.UpdateUser(user);
+        
+        user.Password = null;
+        
+        return user;
+    }
+    
+    /**
+     * Check credentials in database.
+     * @param userName
+     * @param password
+     * @return
+     * @throws SQLException 
+     */
     public static UserVO Login(String userName, String password) throws SQLException {
         UserVO user = UserDO.GetUserByUserName(userName);
         
@@ -25,12 +74,12 @@ public class UserBO {
             if(!user.TokenExpiration.after(new Timestamp(System.currentTimeMillis()))) {
                 user.Token = UUID.randomUUID();
             }
-            //extend token time
-            long eightHours = 8*60*60*1000;
-            user.TokenExpiration = new Timestamp(System.currentTimeMillis() + eightHours);
-            
+
             //save
             UserDO.UpdateUser(user);
+            
+            //extend token time
+            user = ExtendTokenExpiration(user.Token.toString(), user.UserName);
             
             //erase pass for client site
             user.Password = null;
@@ -92,8 +141,8 @@ public class UserBO {
         return UserDO.GetUserByEmail(userName);
     }
     
-    public static UserVO GetUserByToken(String token) throws SQLException {
-        return UserDO.GetUserByToken(token);
+    public static UserVO GetUserByToken(String token, String userName) throws SQLException {
+        return UserDO.GetUserByToken(token, userName);
     }
     
     public static void InsertUser(UserVO userVO) throws Exception {

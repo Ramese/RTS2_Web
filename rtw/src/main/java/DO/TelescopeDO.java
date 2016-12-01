@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TelescopeDO extends BaseDO {
     public static void InsertTelescope(TelescopeVO telescopeVO) throws SQLException {
-        String insertSQL = "INSERT INTO \"User\" (";
+        String insertSQL = "INSERT INTO \"Telescope\" (";
         
         insertSQL += "\"Name\", ";
         insertSQL += "\"Address\", ";
@@ -55,7 +55,7 @@ public class TelescopeDO extends BaseDO {
     public static TelescopeVO GetTelescope(long Id) throws SQLException {
         TelescopeVO result = new TelescopeVO();
         
-        String SQL = "SELECT * FROM \"Telescope\" WHERE Id = " + Id;
+        String SQL = "SELECT * FROM \"Telescope\" WHERE \"Id\" = " + Id;
         
         Connection conn = GetConnection();
         

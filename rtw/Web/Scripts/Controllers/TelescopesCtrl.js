@@ -15,8 +15,30 @@ If you insert dependencies here, you override all modeles with name "controllers
 
 	app.controller('TelescopesCtrl', function ($scope, TelescopeService) {
         
-        function LoadData() {
-            TelescopeService.getTelescopes()
+        $scope.setDefaultPagination = function () {
+            var param = {};
+            
+			$scope.pagingInfo = {
+				Page: 1,
+				ItemsPerPage: 10,
+				SortBy: 'CreateDate',
+				Reverse: true,
+				TotalItems: 0,
+				IsAnd: true,
+				ParamItemsList: []
+			};
+            
+            if ($scope.typeOfOrders === "close") {
+                param = { 'Key': "Solved", 'Value': true, 'IsEquals': true, 'IsNumber': true };
+				$scope.pagingInfo.ParamItemsList.push(param);
+			} else {
+				param = { 'Key': "Solved", 'Value': false, 'IsEquals': true, 'IsNumber': true };
+				$scope.pagingInfo.ParamItemsList.push(param);
+			}
+		};
+        
+        function loadData() {
+            TelescopeService.getTelescopes($scope.pagingInfo)
                 .success(function (data) {
                     console.log("tels ctrl: ", data);
                     $scope.telescopes = data;
@@ -26,8 +48,13 @@ If you insert dependencies here, you override all modeles with name "controllers
                 });
         }
         
-        LoadData();
+        function init() {
+            $scope.setDefaultPagination();
+            
+            loadData();
+        }
         
+        init();
 	});
 
 }());

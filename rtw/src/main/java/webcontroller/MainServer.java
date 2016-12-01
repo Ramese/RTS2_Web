@@ -1,7 +1,7 @@
 package webcontroller;
 
-import webcontroller.Controllers.Controller;
-import webcontroller.Controllers.ApiRootController;
+import com.sun.net.httpserver.HttpContext;
+import webcontroller.controllers.Controller;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -11,9 +11,9 @@ import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import webcontroller.Controllers.LoginController;
-import webcontroller.Controllers.RegistrationController;
-import webcontroller.Controllers.TelescopeController;
+import webcontroller.controllers.LoginController;
+import webcontroller.controllers.RegistrationController;
+import webcontroller.controllers.TelescopeController;
 import webcontroller.websocket.WSServer;
 import static rtw.Config.WebConfig.GLOBAL_WEB_PATH;
 import static rtw.Config.WebConfig.GLOBAL_WEB_API_PATH;
@@ -21,6 +21,7 @@ import static rtw.Config.WebConfig.GLOBAL_WEB_INDEX_NAME;
 import static rtw.Config.WebConfig.GLOBAL_WEB_PORT_NUMBER;
 import static rtw.Config.WebConfig.GLOBAL_WEB_NAME;
 import static rtw.Config.WebConfig.GLOBAL_WEB_FOLDER_PATH;
+import webcontroller.filter.TokenFilter;
 
 /**
  * MainServer is the main service running and listening socket communication. 
@@ -39,7 +40,6 @@ public class MainServer {
     
     private final List<Controller> controllers;
     private WebFaceController mainController;
-    private ApiRootController apiController;
     
             
     /**
@@ -79,12 +79,6 @@ public class MainServer {
             System.out.println("MainController is not defined.");
         }
         
-        if(this.apiController != null){
-            System.out.println(apiController.path);
-        } else {
-            System.out.println("ApiController is not defined.");
-        }
-        
         System.out.println("Specific controllers count: " + controllers.size());
         for (Controller controller : controllers) {
             System.out.println(controller.path);
@@ -94,8 +88,6 @@ public class MainServer {
     private void initControllers(){
         
         this.mainController = new WebFaceController(WebPath, webFolderName, indexName, WebName);
-        
-        this.apiController = new ApiRootController(this.APIPath);
         
         RegistrationController regCtrl = new RegistrationController();
         this.controllers.addAll(regCtrl.ctrls);
@@ -118,12 +110,10 @@ public class MainServer {
             
             for (Controller controller : controllers) {
                 System.out.println("Init ctrl: " + this.APIPath + controller.path);
-                server.createContext(this.APIPath + controller.path, controller);
-            }
-            
-            if(apiController != null){
-                System.out.println("init ctrl: " + apiController.path);
-                server.createContext(apiController.path, apiController);
+                HttpContext context = server.createContext(this.APIPath + controller.path, controller);
+                if(controller.isUserInfoRequired) {
+                    context.getFilters().add(TokenFilter.GetInstance());
+                }
             }
             
             if(mainController != null){
