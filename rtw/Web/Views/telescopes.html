@@ -18,7 +18,11 @@
                 <td>{{ tel.Address }}</td>
                 <td>{{ tel.AccountName }}</td>
                 <td>{{ tel.AccountPassword }}</td>
-                <td><a href="telescope/{{ tel.Id }}"><span class="glyphicon glyphicon-list"></span></a></td>
+                <td>
+                    <a href="telescope/{{ tel.Id }}"><span class="glyphicon glyphicon-list"></span></a>
+                    <a href="telescope/{{ tel.Id }}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a href="interface/{{ tel.Id }}"><span class="glyphicon glyphicon-picture"></span></a>
+                </td>
             </tr>
         </tbody>
     </table>

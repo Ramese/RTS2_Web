@@ -29,7 +29,7 @@ public class TelescopeController {
     private Controller GetTelescopesCtrl() {
         return new Controller("/telescopes", true) {
             @Override
-            public void handle(HttpExchange t) {
+            public void inerHandle(HttpExchange t) {
                 try {
                     if(GLOBAL_DEBUG) {
                         System.out.println("TelescopesController:");
@@ -59,7 +59,7 @@ public class TelescopeController {
     private Controller GetTelescopeCtrl() {
         return new Controller("/telescope", true) {
             @Override
-            public void handle(HttpExchange t) {
+            public void inerHandle(HttpExchange t) {
                 try {
                     if(GLOBAL_DEBUG) {
                         System.out.println("TelescopeController:");
@@ -89,7 +89,7 @@ public class TelescopeController {
     private Controller GetSaveTelescopeCtrl() {
         return new Controller("/savetelescope", true) {
             @Override
-            public void handle(HttpExchange t) {
+            public void inerHandle(HttpExchange t) {
                 try {
                     if(GLOBAL_DEBUG) {
                         System.out.println("TelescopeController:");
@@ -106,6 +106,36 @@ public class TelescopeController {
                     }
                     
                     Controller.SendGoodResponse(TelescopeBO.GetTelescope(telescope.Name), t);
+                } catch (Exception ex) {
+                    Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("message: " + ex.getMessage());
+                    System.out.println("loc mes:" + ex.getLocalizedMessage());
+                    
+                    try {
+                        ex.printStackTrace();
+                        Controller.Exception(ex.getMessage(), t, "Server error.");
+                    } catch (Exception ex1) {
+                        Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                }
+            }
+        };
+    }
+    
+    private Controller GetCurrentImageCtrl() {
+        return new Controller("/currentimage", true) {
+            @Override
+            public void inerHandle(HttpExchange t) {
+                try {
+                    if(GLOBAL_DEBUG) {
+                        System.out.println("CurrentImageController:");
+                    }
+                    
+                    PaginationVO pagination = (PaginationVO)GetObjectFromBody(t.getRequestBody(), PaginationVO.class);
+                    
+                    UserVO user = (UserVO)t.getAttribute("user");
+                    
+                    Controller.SendGoodResponse(TelescopeBO.GetTelescopes(), t);
                 } catch (Exception ex) {
                     Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
                     System.out.println("message: " + ex.getMessage());

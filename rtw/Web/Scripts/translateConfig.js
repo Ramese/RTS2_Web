@@ -46,7 +46,7 @@
                 'ABOUT_INFO': 'Aplikace je aktuálně ve verzi',
 
                 //RESPONSE:
-                'RESPONSE_TOKEN_EXPIRED': 'Vaše přihlášení již vypršelo.',
+                'RESPONSE_TOKEN_EXPIRED': 'Your session expired.',
                 'RESPONSE_TOKEN_WRONG': 'Vaše přihlášení není platné.',
                 'RESPONSE_TOKEN_UNAUTHORIZED': 'Nepovolený přístup.',
                 'RESPONSE_EXCEPTION_OCCURRED': 'Omlouváme se. Na serveru se vyskytla chyba.',

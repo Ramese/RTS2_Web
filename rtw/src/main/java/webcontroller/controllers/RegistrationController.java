@@ -28,7 +28,7 @@ public class RegistrationController {
     private Controller GetRegistrationCtrl() {
         return new Controller("/register", false) {
             @Override
-            public void handle(HttpExchange t) {
+            public void inerHandle(HttpExchange t) {
                 try {
                     if(GLOBAL_DEBUG) {
                         System.out.println("RegistrationController:");
@@ -69,25 +69,21 @@ public class RegistrationController {
     private Controller GetCheckUserNameCtrl() {
         return new Controller("/register/isUsernameFree", false) {
             @Override
-            public void handle(HttpExchange t) throws IOException {
-                try {
-                    if(GLOBAL_DEBUG) {
-                        System.out.println("CheckUserNameController:");
-                    }
-                    
-                    UserVO regUser = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
-
-                    // return new ID, token and 200
-                    try {
-                        regUser = UserBO.GetUserByUserName(regUser.UserName);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    Controller.SendGoodResponse(regUser == null, t);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+            public void inerHandle(HttpExchange t) throws Exception {
+                if(GLOBAL_DEBUG) {
+                    System.out.println("CheckUserNameController:");
                 }
+
+                UserVO regUser = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
+
+                // return new ID, token and 200
+                try {
+                    regUser = UserBO.GetUserByUserName(regUser.UserName);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Controller.SendGoodResponse(regUser == null, t);
             }
         };
     }
@@ -95,21 +91,17 @@ public class RegistrationController {
     private Controller GetCheckUserEmailCtrl() {
         return new Controller("/register/isUserEmailFree", false) {
             @Override
-            public void handle(HttpExchange t) throws IOException {
-                try {
-                    if(GLOBAL_DEBUG) {
-                        System.out.println("CheckUserEmailController:");
-                    }
-                    
-                    UserVO regUser = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
-
-                    // return new ID, token and 200
-                    regUser = UserBO.GetUserByEmail(regUser.Email);
-
-                    Controller.SendGoodResponse(regUser == null, t);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+            public void inerHandle(HttpExchange t) throws Exception {
+                if(GLOBAL_DEBUG) {
+                    System.out.println("CheckUserEmailController:");
                 }
+
+                UserVO regUser = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
+
+                // return new ID, token and 200
+                regUser = UserBO.GetUserByEmail(regUser.Email);
+
+                Controller.SendGoodResponse(regUser == null, t);
             }
         };
     }

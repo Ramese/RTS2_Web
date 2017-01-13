@@ -23,7 +23,7 @@ public class LoginController {
     private Controller GetLoginCtrl() {
         return new Controller("/login", false) {
             @Override
-            public void handle(HttpExchange t) {
+            public void inerHandle(HttpExchange t) {
                 try {
                     if(GLOBAL_DEBUG) {
                         System.out.println("LoginController:");

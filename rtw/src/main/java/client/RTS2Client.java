@@ -1,13 +1,12 @@
-package Tests;
+package client;
 
-import client.RTS2Client;
+import VO.TelescopeImageVO;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -18,31 +17,26 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-/**
- *
- * @author Radek
- */
-public class HttpClientTest {
-    public static void main(String[] args) throws MalformedURLException, IOException {
-        //UUID ui = UUID.fromString("");
+
+public class RTS2Client {
+    
+    
+    public static void GetCurrentImage(String serverUrl, String userName, String password) throws MalformedURLException, IOException {
         
+        UsernamePasswordCredentials creds = new UsernamePasswordCredentials(userName, password);
         
-        URL url = new URL("http://192.168.56.101:8889/api/devices");
-        URL urlSeznam = new URL("https://seznam.cz");
-        
-        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("test", "test");
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        
         credsProvider.setCredentials(
             new AuthScope("192.168.56.101", AuthScope.ANY_PORT), creds);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpClientContext context = HttpClientContext.create();
         context.setCredentialsProvider(credsProvider);
-        HttpGet httpget = new HttpGet("http://192.168.56.101:8889/api/devices");
+        HttpGet httpget = new HttpGet("http://" + serverUrl + "/api/currentimage?ccd=C0");
         CloseableHttpResponse response = httpclient.execute(httpget, context);
+        
         try {
-            
-            RTS2Client.GetCurrentImage("192.168.56.101:8889", "test", "test");
-            
+
             System.out.println(response.getProtocolVersion());
             System.out.println(response.getStatusLine().getStatusCode());
             System.out.println(response.getStatusLine().getReasonPhrase());
@@ -50,21 +44,22 @@ public class HttpClientTest {
 
             InputStream is = response.getEntity().getContent();
             
+            DataInputStream dis = new DataInputStream(is);
+            
+            TelescopeImageVO timg = TelescopeImageVO.Fill(dis);
+            
+            
+            
+            
             Scanner s = new Scanner(is).useDelimiter("\\A");
             String inputJSON = s.hasNext() ? s.next() : "";
             
             System.out.println("json "+inputJSON);
             
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             response.close();
         }
-        
-        
-        
-        
-        
-        //hc.
-        
-        
     }
 }

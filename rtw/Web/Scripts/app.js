@@ -91,7 +91,7 @@
 		});
 
 		$routeProvider
-			.when('/interface', {
+			.when('/interface/:id', {
 				templateUrl: 'Views/interface.html',
 				controller: 'InterfaceCtrl',
 				caseInsenstivieMatch: true,
@@ -99,11 +99,11 @@
                 title: "Interface | RTS2 Web"
 			})
             .when('/', {
-				templateUrl: 'Views/interface.html',
-				controller: 'InterfaceCtrl',
+				templateUrl: 'Views/timeTable.html',
+				controller: 'TimeTableCtrl',
 				caseInsenstivieMatch: true,
                 freeAccess: false,
-                title: "Interface | RTS2 Web"
+                title: "TimeTable | RTS2 Web"
 			})
             .when('/timetable', {
 				templateUrl: 'Views/timeTable.html',

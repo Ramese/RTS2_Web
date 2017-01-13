@@ -1,4 +1,4 @@
-/*global angular*/
+/*global angular,console*/
 
 /*
 README:
@@ -13,9 +13,11 @@ If you insert dependencies here, you override all modeles with name "controllers
 
 	var app = angular.module('controllers');
 
-	app.controller('InterfaceCtrl', ['$scope', '$window', 'Auth', '$translate', 'CONSTANTS', function ($scope, $window, Auth, $translate, CONSTANTS) {
-
+	app.controller('InterfaceCtrl', function ($scope, $routeParams) {
+        console.log("id", $routeParams.id);
+        
+        
 		
-	}]);
+	});
 
 }());

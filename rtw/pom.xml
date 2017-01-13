@@ -28,5 +28,11 @@
             <artifactId>postgresql</artifactId>
             <version>9.4.1212.jre7</version>
         </dependency>
+        
+        <dependency>
+            <groupId>gov.nasa.gsfc.heasarc</groupId>
+            <artifactId>nom-tam-fits</artifactId>
+            <version>1.15.1</version>
+        </dependency>
     </dependencies>
 </project>

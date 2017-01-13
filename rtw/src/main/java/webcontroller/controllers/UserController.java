@@ -16,7 +16,7 @@ public class UserController extends Controller {
     }
     
     @Override
-    public void handle(HttpExchange t) throws IOException {
+    public void inerHandle(HttpExchange t) throws Exception {
         String response = "<h1>This is apiBaseCtrl</h1>" + t.getRequestURI().toString();
         response += Controller.GetRequestToHTML(t, true);
         t.sendResponseHeaders(200, response.length());

@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import webcontroller.HTTPProtocol;
 import static rtw.Config.GLOBAL_DEBUG;
 
@@ -78,8 +80,19 @@ public class Controller implements HttpHandler {
     }
     
     @Override
-    public void handle(HttpExchange he) throws IOException {
-        System.out.println("Not imp.");
+    public final void handle(HttpExchange he) throws IOException {
+        try {
+            inerHandle(he);
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("message: " + ex.getMessage());
+            System.out.println("loc mes:" + ex.getLocalizedMessage());
+            ex.printStackTrace();
+        }
+    }
+    
+    public void inerHandle(HttpExchange he) throws Exception {
+        System.out.println("Not implemented!");
     }
     
     public static void TokenUnparsable(String message, HttpExchange request) throws IOException {
