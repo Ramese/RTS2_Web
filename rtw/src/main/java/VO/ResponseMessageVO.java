@@ -11,4 +11,15 @@ public class ResponseMessageVO {
     
     public String message;
     public boolean isTranslatable;
+    
+    public boolean isInternal;
+    public HttpResult messageObject;
+    
+    public class HttpResult {
+        public String message;
+        public String statusLine;
+        public int statusCode;
+    }
 }
+
+

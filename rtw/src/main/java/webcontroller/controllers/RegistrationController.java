@@ -3,7 +3,6 @@ package webcontroller.controllers;
 import BO.UserBO;
 import VO.UserVO;
 import com.sun.net.httpserver.HttpExchange;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,40 +27,27 @@ public class RegistrationController {
     private Controller GetRegistrationCtrl() {
         return new Controller("/register", false) {
             @Override
-            public void inerHandle(HttpExchange t) {
-                try {
-                    if(GLOBAL_DEBUG) {
-                        System.out.println("RegistrationController:");
-                    }
-                    
-                    UserVO regUser = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
-
-                    // check if the object is ok
-                    if(!UserBO.IsUserValidForInsert(regUser)) {
-                        Controller.ExpectationFailed("Wrong user data. inputJSON: ", t, "Registration of new user is not successful. User data are incorrect.");
-                        return;
-                    }
-
-                    // save object
-                    UserBO.InsertUser(regUser);
-
-                    // return new ID, token and 200
-                    regUser = UserBO.GetUserByUserName(regUser.UserName);
-                    
-                    Controller.SendGoodResponse(regUser, t);
-                } catch (Exception ex) {
-                    Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("message: " + ex.getMessage());
-                    System.out.println("loc mes:" + ex.getLocalizedMessage());
-                    
-                    ex.printStackTrace();
-                    
-                    try {
-                        Controller.Exception(ex.getMessage(), t, "Server error.");
-                    } catch (Exception ex1) {
-                        Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
+            public void inerHandle(HttpExchange t) throws Exception{
+                if(GLOBAL_DEBUG) {
+                    System.out.println("RegistrationController:");
                 }
+
+                UserVO regUser = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
+
+                // check if the object is ok
+                if(!UserBO.IsUserValidForInsert(regUser)) {
+                    Controller.ExpectationFailed("Wrong user data. inputJSON: ", t, "Registration of new user is not successful. User data are incorrect.");
+                    return;
+                }
+
+                // save object
+                UserBO.InsertUser(regUser);
+
+                // return new ID, token and 200
+                regUser = UserBO.GetUserByUserName(regUser.UserName);
+
+                Controller.SendGoodResponse(regUser, t);
+                
             }
         };
     }

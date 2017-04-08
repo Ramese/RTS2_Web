@@ -3,6 +3,8 @@ package webcontroller.controllers;
 import BO.UserBO;
 import VO.UserVO;
 import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,36 +25,23 @@ public class LoginController {
     private Controller GetLoginCtrl() {
         return new Controller("/login", false) {
             @Override
-            public void inerHandle(HttpExchange t) {
-                try {
-                    if(GLOBAL_DEBUG) {
-                        System.out.println("LoginController:");
-                    }
-                    
-                    UserVO userCredentials = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
-
-                    // save object
-                    UserVO user = UserBO.Login(userCredentials.UserName, userCredentials.Password);
-
-                    if(user == null) {
-                        Controller.ExpectationFailed("Incorrect credentials.", t, "Incorrect user name or password.");
-                        return;
-                    }
-                    
-                    Controller.SendGoodResponse(user, t);
-                } catch (Exception ex) {
-                    Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("message: " + ex.getMessage());
-                    System.out.println("loc mes:" + ex.getLocalizedMessage());
-                    
-                    ex.printStackTrace();
-                    
-                    try {
-                        Controller.Exception(ex.getMessage(), t, "Server error.");
-                    } catch (Exception ex1) {
-                        Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
+            public void inerHandle(HttpExchange t) throws Exception {
+                
+                if(GLOBAL_DEBUG) {
+                    System.out.println("LoginController:");
                 }
+
+                UserVO userCredentials = (UserVO)Controller.GetObjectFromBody(t.getRequestBody(), UserVO.class);
+
+                // save object
+                UserVO user = UserBO.Login(userCredentials.UserName, userCredentials.Password);
+
+                if(user == null) {
+                    Controller.ExpectationFailed("Incorrect credentials.", t, "Incorrect user name or password.");
+                    return;
+                }
+
+                Controller.SendGoodResponse(user, t);
             }
         };
     }

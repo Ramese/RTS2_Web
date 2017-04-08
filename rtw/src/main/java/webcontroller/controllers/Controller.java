@@ -79,6 +79,13 @@ public class Controller implements HttpHandler {
         }
     }
     
+    /**
+     * Metoda je volána standardním objektem HttpServer. Je nastavena jako 
+     * final, protože obsahuje log pro případ pádu a zároveň zamezuje úplnému 
+     * pádu serveru.
+     * @param he
+     * @throws IOException 
+     */
     @Override
     public final void handle(HttpExchange he) throws IOException {
         try {
@@ -87,10 +94,22 @@ public class Controller implements HttpHandler {
             Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("message: " + ex.getMessage());
             System.out.println("loc mes:" + ex.getLocalizedMessage());
+            
+            // potřeba dodělat log IP, vstupnich objektu, pozadavku
+            System.out.println("Ip: " + he.getRemoteAddress().getAddress().toString());
+            System.out.println("Body: " + GetStringFromBody(he.getRequestBody()));
+            System.out.println("Address: " + he.getRequestMethod());
+            
             ex.printStackTrace();
         }
     }
     
+    /**
+     * Vnitřní metoda pro implementaci funkce kontroleru. Není potřeba řešit log
+     * a výjimky.
+     * @param he
+     * @throws Exception 
+     */
     public void inerHandle(HttpExchange he) throws Exception {
         System.out.println("Not implemented!");
     }
@@ -177,6 +196,14 @@ public class Controller implements HttpHandler {
     }
     
     public static Object GetObjectFromBody(InputStream body, Class _class) {
+        String inputJSON = GetStringFromBody(body);
+        
+        // transfer JSON to Value Object
+        Gson gson = new Gson();
+        return gson.fromJson(inputJSON, _class);
+    }
+    
+    public static String GetStringFromBody(InputStream body) {
         // get JSON
         Scanner s = new Scanner(body).useDelimiter("\\A");
         String inputJSON = s.hasNext() ? s.next() : "";
@@ -185,9 +212,7 @@ public class Controller implements HttpHandler {
             System.out.println("json: " + inputJSON);
         }
 
-        // transfer JSON to Value Object
-        Gson gson = new Gson();
-        return gson.fromJson(inputJSON, _class);
+        return inputJSON;
     }
     
 //    public static UserVO GetInfo(HttpExchange t) throws SQLException {

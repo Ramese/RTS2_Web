@@ -18,6 +18,7 @@ import webcontroller.HTTPProtocol;
 public class TokenFilter extends Filter {
     private static TokenFilter instance;
     
+    public static String USER_OBJECT_STRING = "user";
     
     private TokenFilter() {
         
@@ -51,7 +52,7 @@ public class TokenFilter extends Filter {
                 Controller.NotLoggedIn("Token expired.", he);
                 return;
             } else {
-                he.setAttribute("user", user);
+                he.setAttribute(USER_OBJECT_STRING, user);
             }
 
             chain.doFilter(he);

@@ -1,5 +1,6 @@
 package client;
 
+import VO.ResponseMessageVO;
 import VO.TelescopeImageVO;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -20,6 +21,45 @@ import org.apache.http.impl.client.HttpClients;
 
 public class RTS2Client {
     
+    /**
+     * Universal method for http request. Just to reduce code.
+     * @param serverUrl
+     * @param query
+     * @param userName
+     * @param password
+     * @return
+     * @throws IOException 
+     */
+    private static CloseableHttpResponse GetResponse(String serverUrl, String query, String userName, String password) throws IOException {
+        if(serverUrl.startsWith("http://"))
+            serverUrl = serverUrl.substring(7);
+        
+        UsernamePasswordCredentials creds = new UsernamePasswordCredentials(userName, password);
+        
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        
+        credsProvider.setCredentials(new AuthScope(serverUrl, AuthScope.ANY_PORT), creds);
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpClientContext context = HttpClientContext.create();
+        context.setCredentialsProvider(credsProvider);
+        HttpGet httpget = new HttpGet("http://" + serverUrl + query);
+        return httpclient.execute(httpget, context);
+    }
+    
+    /**
+     * Get String array of devices.
+     * @param serverUrl
+     * @param userName
+     * @param password
+     * @return
+     * @throws IOException 
+     */
+    public static String GetDevices(String serverUrl, String userName, String password) throws IOException {
+        CloseableHttpResponse response = GetResponse(serverUrl, "/api/devices", userName, password);
+        
+        
+        return "";
+    }
     
     public static void GetCurrentImage(String serverUrl, String userName, String password) throws MalformedURLException, IOException {
         

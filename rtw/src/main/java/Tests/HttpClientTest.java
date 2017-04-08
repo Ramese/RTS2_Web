@@ -41,7 +41,7 @@ public class HttpClientTest {
         CloseableHttpResponse response = httpclient.execute(httpget, context);
         try {
             
-            RTS2Client.GetCurrentImage("192.168.56.101:8889", "test", "test");
+            //RTS2Client.GetCurrentImage("192.168.56.101:8889", "test", "test");
             
             System.out.println(response.getProtocolVersion());
             System.out.println(response.getStatusLine().getStatusCode());
@@ -58,13 +58,6 @@ public class HttpClientTest {
         } finally {
             response.close();
         }
-        
-        
-        
-        
-        
-        //hc.
-        
         
     }
 }
